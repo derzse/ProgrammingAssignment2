@@ -5,33 +5,33 @@
 ## This function creates a matrix object that can cache the inverse of a 
 ## given matrix.
 makeCacheMatrix <- function( x = matrix() ) {
-    
+
 	## Initialization of the inverse matrix.
 	m <- NULL 
 	
 	## Function that assign makeCacheMatrix the input variable.
-    set <- function( matrix ) {
-            x <<- matrix
-            m <<- NULL
-    }
+	set <- function(matrix) {
+			x <<- matrix
+			m <<- NULL
+	}
 	
 	## Function that returns x.
-    get <- function() x
+	get <- function() x
 
 	## Function that assign the inverse of the matrix to m.
-    setInverse <- function(inverse) {
-        m <<- inverse
+	setInverse <- function(inverse) {
+		m <<- inverse
     }
 
 	## Function that returns the matrix m.
-    getInverse <- function() m
+	getInverse <- function() m
 
 	## makeCacheMatrix function returns a list of four elements, each 
 	##element is a function defined earlier.
-    list(set = set, 
-		 get = get,
-         setInverse = setInverse,
-         getInverse = getInverse)
+	list(set = set, 
+		get = get,
+		setInverse = setInverse,
+		getInverse = getInverse)
 }
 
 ## This function solves the inverse matrix for the one returned 
@@ -41,28 +41,28 @@ makeCacheMatrix <- function( x = matrix() ) {
 cacheSolve <- function(x, ...) {
 
 	## Assign the inverse matrix of x to m
-    m <- x$getInverse()
+	m <- x$getInverse()
 
 	## Checking if it has been already solved an inverse for x
-    if( !is.null(m) ) {
-            message("Retrieving cached inverse")
-            return(m)
-    }
+	if( !is.null(m) ) {
+			message("Retrieving cached inverse")
+			return(m)
+	}
 
 	## Reads the matrix 
-    df <- x$get()
+	df <- x$get()
 	
 	## Solves the inverse for the matrix
-    m <- solve(df) %*% df
+	m <- solve(df) %*% df
 	
 	## Sets the inverse matrix for x
-    x$setInverse(m)
+	x$setInverse(m)
 	
 	## Return the inverse matrix for x
-    m
+	m
 }
 
-## Example for usig the above functions.
+## Example for using the above functions.
 
 ##Generating a 5 by 5 random matrix.
 set.seed(12345)
